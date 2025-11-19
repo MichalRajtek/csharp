@@ -2,24 +2,47 @@
 
 namespace Cvicenie_StringMath
 {
-    internal class Program
+    class Program
     {
-        static void Main(string[] args)
+        static void Main()
         {
-            int a = int.Parse(Console.ReadLine());
-            int b = int.Parse(Console.ReadLine());
+            // Zoznam ľudí:
+            var people = new List<string>
+        {
+            "Adam", "Beáta", "Cyril", "Daniela", "Eva", "František", "Gabriel", "Hana", "Igor", "Jana",
+            "Kamil", "Lenka", "Martin", "Norbert", "Oľga", "Patrik", "Roman", "Simona", "Tomáš", "Viera",
+            "Zuzana", "Alex", "Barbora", "Cecília", "David", "Edita", "Filip", "Gustáv", "Henrieta", "Ivana",
+            "Jakub", "Kristína", "Lukáš", "Mária", "Natália", "Ondrej", "Petra", "Renáta", "Stanislav", "Tereza",
+            "Veronika", "Zdeněk", "Aneta", "Branislav", "Dagmar", "Dominik", "Emília", "Ferdinand", "Gabriela", "Horst"
+            // Pridaj ďalšie mená podľa potreby
+        };
 
-            int sum = Scitanie(a, b, 1, 2, 3);
-            int sum4 = Scitanie(a, b, 1, 2, 3);
-            int su8 = Scitanie(a, b, 1, 2, 3);
-            int su9 = Scitanie(a, b, 1, 2, 3);
-            Console.WriteLine(sum);
+            var selected = RandomSelectPeople(people, 20);
+
+            Console.WriteLine("Náhodne vybraných 20 ľudí:");
+            foreach (var name in selected)
+            {
+                Console.WriteLine(name);
+            }
         }
 
-        public static int Scitanie(int a, int b, int c, int d, int e)
+        // Metóda na náhodný výber n ľudí zo zoznamu (bez opakovania)
+        static List<string> RandomSelectPeople(List<string> people, int n)
         {
-            int ff = a + b + c + d + e;
-            return ff;
+            if (n > people.Count)
+                throw new ArgumentException("Počet vybraných je väčší ako počet ľudí v zozname!");
+
+            var rand = new Random(1445577);
+            var peopleCopy = new List<string>(people); // aby sme nemiešali originál
+            var result = new List<string>();
+
+            for (int i = 0; i < n; i++)
+            {
+                int idx = rand.Next(peopleCopy.Count);
+                result.Add(peopleCopy[idx]);
+                peopleCopy.RemoveAt(idx);
+            }
+            return result;
         }
     }
 }

@@ -21,7 +21,11 @@ namespace Cvicenie_BattleSimulator
 
         public void MonsterAttack(Hero hero)
         {
-            hero.HP = hero.HP - DMG;
+            if (hero.Armor < DMG)
+            {
+                int finalDamege = DMG - hero.Armor;
+                hero.HP = hero.HP - finalDamege;
+            }
         }
 
     }

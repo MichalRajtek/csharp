@@ -12,7 +12,7 @@ namespace Cvicenie_BattleSimulator
         public int HP { get; set; } = 100;    //Health points
         public int DMG { get; set; } = 10;   //Damage
         public int ENG { get; set; } = 100;       //Energy
-
+        public int Armor { get; set; } = 150;
 
         public bool HeroAttack(Monster monster)
         {
