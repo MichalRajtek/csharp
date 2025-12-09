@@ -27,7 +27,7 @@ namespace Cvicenie_IdleFarmer
                 WriteMenu();
                 ActionAtTheEndOfDay();
 
-                SolveMath();
+                //SolveMath();
             }
         }
         public void RenderField()

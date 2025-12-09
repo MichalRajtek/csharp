@@ -4,82 +4,24 @@
     {
         static void Main(string[] args)
         {
-            var items = GetRandomLoot();
+            List<Item> items = LootGenerator.GetRandomLoot();
 
-            Napis5ItemVListe(items);
+            //najlacensi item
+            Item worst = items.MinBy(vec => vec.Price);
+            Console.WriteLine(worst);
 
-        }
+            //najlacensi item
+            Item bestItem = items.MaxBy(vec => vec.Price);
+            Console.WriteLine(bestItem);
 
+            List<Item> orderByPrice = items.OrderBy(vec => vec.Price).ToList();
+            Console.WriteLine(orderByPrice[0]);
 
-        public static void Napis5ItemVListe(List<Item> items)
-        {
-            Console.WriteLine("Piaty item v liste je: " + items[5]);
-        }
+            List<Item> orderByPriceNajdrahsi = items.OrderByDescending(vec => vec.Price).ToList(); //TU FIX
+            Console.WriteLine("Toto je najdrahsia vec:" + orderByPriceNajdrahsi[0]);
 
-
-
-
-
-        public static List<Item> GetRandomLoot()
-        {
-            var itemNames = new List<string>
-        {
-          "Zafírový amulet",
-    "Dračí plášť",
-    "Kúzelné ponožky",
-    "Elixír neviditeľnosti",
-    "Plášť tieňov",
-    "Strieborný roh",
-    "Temný artefakt",
-    "Runový zvitok",
-    "Plameňová koruna",
-    "Oceľové rukavice",
-    "Krištáľový prsteň",
-    "Tajomný medailón",
-    "Meč bleskov",
-    "Klenot púšte",
-    "Prikrývka mrazu",
-    "Kniha zabudnutých kúziel",
-    "Hromový halapartník",
-    "Zlatý pohár",
-    "Svätožiarová lampa",
-    "Vírivá dýka",
-    "Galaktické okuliare",
-    "Truhlica so záhadou",
-    "Rubínové topánky",
-    "Prsteň večnosti",
-    "Zamatové puzdro",
-    "Náhrdelník odvahy",
-    "Maska ilúzií",
-    "Korunka moci",
-    "Nefritový fragment",
-    "Tótem šťastia"
-        };
-
-
-            var rand = new Random(148752985);
-            var itemNamesCopy = new List<string>(itemNames);
-            var result = new List<Item>();
-
-            for (int i = 0; i < 20; i++)
-            {
-                int idx = rand.Next(itemNamesCopy.Count);
-                string name = itemNamesCopy[idx];
-                itemNamesCopy.RemoveAt(idx);
-
-                int price = rand.Next(50, 2001);    // náhodná cena 50 až 2000
-                int level = rand.Next(1, 11);       // náhodný level 1 až 10
-
-                var item = new Item
-                {
-                    Name = name,
-                    Price = price,
-                    Level = level
-                };
-
-                result.Add(item);
-            }
-            return result;
+            List<Item> itemUnder1000 = items.Where(vec => vec.Price <= 1000 && vec.Price >= 500).ToList();
+            Console.WriteLine("Pocet itemov pod 1000 nad 500 " + itemUnder1000.Count);
         }
     }
 }
